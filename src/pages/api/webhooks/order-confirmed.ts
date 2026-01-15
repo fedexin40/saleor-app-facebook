@@ -112,7 +112,6 @@ const orderConfirmedHandler: NextApiHandler = async (req, res) => {
     const event_id = `${order.id}_Purchase_${current_timestamp}`;
     const ip = order.ip.ip
     const userAgent = order.userAgent.userAgent
-    console.log(order)
     const fbp = order.fbp._fbp
     const fbc = order.fbc._fbc
     const external_id = order.f_external_id.f_external_id
@@ -125,8 +124,6 @@ const orderConfirmedHandler: NextApiHandler = async (req, res) => {
       .setFbp(fbp)
       .setFbc(fbc)
       .setExternalId(external_id);
-
-    console.log(userData)
 
     if (order.userEmail && order.userEmail.length > 0) {
       userData.setEmails([order.userEmail.trim().toLowerCase()]);
@@ -163,7 +160,8 @@ const orderConfirmedHandler: NextApiHandler = async (req, res) => {
       .setEvents([serverEvent])
 
     try {
-      await eventRequest.execute();
+      const response = await eventRequest.execute();
+      console.log(response)
       return res.status(200).json({ message: "event handled" });
     } catch (err: any) {
       console.error('CAPI Error:', err);
