@@ -2,10 +2,7 @@ import { createManifestHandler } from "@saleor/app-sdk/handlers/next";
 import { AppManifest } from "@saleor/app-sdk/types";
 
 import packageJson from "../../../package.json";
-import { orderCancelledWebhook } from "./webhooks/order-cancelled";
 import { orderConfirmedWebhook } from "./webhooks/order-confirmed";
-import { orderCreatedWebhook } from "./webhooks/order-created";
-import { shippingEventsWebhook } from "./webhooks/shipping-events";
 
 /**
  * App SDK helps with the valid Saleor App Manifest creation. Read more:
@@ -22,7 +19,7 @@ export default createManifestHandler({
     const apiBaseURL = process.env.APP_API_BASE_URL ?? appBaseUrl;
 
     const manifest: AppManifest = {
-      name: "Skydropx shipping",
+      name: "Facebook CAPI",
       tokenTargetUrl: `${apiBaseURL}/api/register`,
       appUrl: iframeBaseUrl,
       /**
@@ -36,11 +33,8 @@ export default createManifestHandler({
          * This can be removed
          */
         "MANAGE_ORDERS",
-        "HANDLE_CHECKOUTS",
-        "MANAGE_CHECKOUTS",
-        "MANAGE_SHIPPING",
       ],
-      id: "saleor.skydropx-shipping.app",
+      id: "saleor.facebook.capi",
       version: packageJson.version,
       /**
        * Configure webhooks here. They will be created in Saleor during installation
@@ -51,26 +45,13 @@ export default createManifestHandler({
        * https://github.com/saleor/saleor-app-sdk/blob/main/docs/saleor-webhook.md
        */
       webhooks: [
-        orderCreatedWebhook.getWebhookManifest(apiBaseURL),
-        shippingEventsWebhook.getWebhookManifest(apiBaseURL),
         orderConfirmedWebhook.getWebhookManifest(apiBaseURL),
-        orderCancelledWebhook.getWebhookManifest(apiBaseURL),
       ],
       /**
        * Optionally, extend Dashboard with custom UIs
        * https://docs.saleor.io/docs/3.x/developer/extending/apps/extending-dashboard-with-apps
        */
-      extensions: [
-        {
-          "label": "Manual shipment",
-          "mount": "NAVIGATION_ORDERS",
-          "target": "APP_PAGE",
-          "permissions": [
-            "MANAGE_ORDERS"
-          ],
-          "url": "/extensions/shipment"
-        },
-      ],
+      extensions: [],
       author: "fedexin40",
       brand: {
         logo: {

@@ -1,11 +1,11 @@
 {
-  "name": "saleor-app-template",
+  "name": "saleor-app-facebook",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port=4030",
+    "dev": "next dev --port=4090",
     "build": "pnpm generate && next build",
-    "start": "next start --port=4030",
+    "start": "next start --port=4090",
     "lint": "next lint",
     "fetch-schema": "curl https://raw.githubusercontent.com/saleor/saleor/${npm_package_saleor_schemaVersion}/saleor/graphql/schema.graphql > graphql/schema.graphql",
     "generate": "graphql-codegen",
@@ -28,14 +28,13 @@
     "@saleor/macaw-ui": "1.0.0-pre.4",
     "@urql/exchange-auth": "^1.0.0",
     "app-bridge": "link:@saleor/app-sdk/app-bridge",
-    "axios": "^1.12.2",
+    "facebook-nodejs-business-sdk": "^24.0.1",
     "next": "15.1.7",
     "node-cache": "^5.1.2",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "redis": "^5.9.0",
-    "urql": "^4.0.2",
-    "zustand": "^5.0.8"
+    "urql": "^4.0.2"
   },
   "packageManager": "pnpm@10.12.1",
   "devDependencies": {
